@@ -1,0 +1,37 @@
+name = "MarotiOrdersOfPrimitiveGroups"
+defaultTargets = ["Maroti", "Checks", "Comparator"]
+
+[leanOptions]
+pp.unicode.fun = true
+autoImplicit = false
+relaxedAutoImplicit = false
+
+# Pinned to the exact revisions used by https://github.com/AxiomMath/CFSG, so that
+# `TauCeti.ClassificationStatement` here is the statement CFSG proves, and so that CFSG's
+# published build cache applies.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "b63f6e8a68d220e3b3bc4f3792bb53650d375f24"
+
+[[require]]
+name = "TauCeti"
+git = "https://github.com/TauCetiProject/TauCeti"
+rev = "6e0c6acab5f4c6f42e5f5bab9bd5e4e84f74c380"
+
+[[require]]
+name = "cfsg"
+git = "https://github.com/AxiomMath/CFSG"
+rev = "69cb972f587a3ecc035e092253167ff2e303c962"
+
+[[lean_lib]]
+name = "Maroti"
+
+[[lean_lib]]
+name = "Checks"
+globs = ["Checks.+"]
+
+[[lean_lib]]
+name = "Comparator"
+srcDir = "Comparator"
+roots = ["Challenge", "Solution"]

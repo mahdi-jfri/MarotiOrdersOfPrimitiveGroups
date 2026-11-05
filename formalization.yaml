@@ -1,0 +1,85 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml (v0.4): https://github.com/mathlib-initiative/formalization.yaml
+
+version: "v0.4"
+
+project:
+  name: "The orders of primitive permutation groups"
+  description: >-
+    A Lean 4 proof of Theorem 1.1 of A. Maróti, On the orders of primitive groups (2002). A
+    primitive permutation group of degree n >= 2 is a product-action subgroup of S_m wr S_r
+    containing (A_m)^r, is M11, M12, M23 or M24 in its 4-transitive action, or has order at most
+    n * prod_{i < floor(log2 n)} (n - 2^i) < n^(1 + floor(log2 n)). The theorem is proved first
+    assuming the classification of finite simple groups, stated as TauCeti's
+    ClassificationStatement, and then without hypotheses from AxiomMath/CFSG's proof of the
+    classification.
+  authors: ["Mahdi JafariRaviz"]
+  responsible_maintainers: ["Mahdi JafariRaviz"]
+  license: "Apache-2.0"
+
+sources:
+  - title: "On the orders of primitive groups"
+    authors: ["Attila Maróti"]
+    id: "https://doi.org/10.1016/S0021-8693(02)00646-4"
+    type: "article"
+    location: "Theorem 1.1"
+    relationship: "formalizes"
+    note: "J. Algebra 258 (2002), 631–640."
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/AxiomMath/CFSG"
+    relationship: "builds-on"
+    note: >-
+      The proof of the classification of finite simple groups, models of the groups on the list,
+      their orders and outer automorphism groups, and local subgroups used for the small cases.
+  - id: "https://github.com/TauCetiProject/TauCeti"
+    relationship: "builds-on"
+    note: "The statement of the classification and the list of finite simple groups."
+
+classification:
+  arxiv: ["math.GR"]
+  msc2020: ["20B15", "20D05"]
+
+status:
+  scope: "Theorem 1.1 of the paper, in full."
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "Maroti.theorem_1_1"
+      file: "Comparator/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Maroti.theorem_1_1_of_classification"
+      file: "Maroti/Main.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+
+fidelity:
+  divergences: >-
+    The formal statement differs from the printed one in two places. The degree is at least 2,
+    since for n = 1 the strict inequality of case (iii) reads 1 < 1. Case (i) also requires
+    m >= 5, 1 <= k, 2k < m and r >= 1; these ranges come from the paper's proof and make the
+    formal theorem stronger than the printed one. README.md gives the details.
+
+review:
+  status: "self-assessed"
+
+alignment:
+  namespace: "Maroti"
+  statements:
+    - source: "Theorem 1.1"
+      lean: "Maroti.theorem_1_1"
+      module: "Comparator/Solution.lean"
+      status: "proved"
+    - source: "Theorem 1.1, assuming the classification of finite simple groups"
+      lean: "Maroti.theorem_1_1_of_classification"
+      module: "Maroti/Main.lean"
+      status: "proved"
